@@ -7,6 +7,7 @@ import "@fontsource/roboto/700.css";
 import backgroundImg from "../assets/background.png";
 
 import { Inter } from "next/font/google";
+import { SideNav } from "@/components/SideNav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NavBar />
+        <SideNav />
         {children}
       </body>
     </html>

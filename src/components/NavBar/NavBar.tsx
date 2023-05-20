@@ -25,8 +25,8 @@ export function NavBar() {
     justifyContent: "space-between",
 
     "@media (min-width: 600px)": {
-      paddingLeft: "2.77777778vw",
-      paddingRight: "2.77777778vw",
+      paddingLeft: "1.125vw",
+      paddingRight: "2.777777778vw",
     },
   });
 
