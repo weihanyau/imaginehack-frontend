@@ -2,7 +2,7 @@
 
 import ReactVideoRecorder from "react-video-recorder";
 
-export function Video() {
+export function Video({ videoBlobRef }) {
   return (
     <ReactVideoRecorder
       constraints={{
@@ -11,21 +11,8 @@ export function Video() {
       }}
       mimetype="video/mp4"
       countdownTime={0}
-      onRecordingComplete={async (videoBlob) => {
-        const formData = new FormData();
-        formData.append("file", videoBlob);
-
-        fetch("http://localhost:3000/upload", {
-          method: "POST",
-          body: formData,
-        })
-          .catch((e) => {
-            console.log(e);
-          })
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-          });
+      onRecordingComplete={async (blob) => {
+        videoBlobRef.current = blob;
       }}
       isOnInitially
       showReplayControls

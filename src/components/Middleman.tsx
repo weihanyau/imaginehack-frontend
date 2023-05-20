@@ -3,12 +3,10 @@
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { PillButtonFunctional } from "@/components/PillButtonFunctional";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRef } from "react";
+import { Video } from "@/components/Video";
 
 const Container = styled("div")({
   display: "flex",
@@ -57,56 +55,49 @@ const CardSubTitle = styled("h4")({
   color: "#656565",
 });
 
-export default function Start({ params }: { params: { id: string } }) {
-  const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const interviewId = params.id;
+export function Middleman({
+  question,
+  intervieweeId,
+}: {
+  question: string;
+  intervieweeId: string;
+}) {
+  const videoBlobRef = useRef<Blob | string>("");
 
   return (
     <Container>
       <GreyCard>
-        <CardTitle>Apply for Interview</CardTitle>
+        <CardTitle>Question 1</CardTitle>
         <TextBox
-          placeholder="Name"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          value={name}
-        />
-        <TextBox
-          placeholder="Email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
+          placeholder="Question"
+          value={question}
+          InputProps={{ readOnly: true }}
         />
         <Divider
           variant="middle"
           sx={{ borderColor: "#383838", borderWidth: "2px" }}
         />
+        <Video videoBlobRef={videoBlobRef} />
         <PillButtonFunctional
           text="Submit"
           color="#00A7DC"
           backgroundColor="#003E61"
           onClick={async () => {
-            const data = {
-              name: name,
-              interviewId: interviewId,
-            };
-            const response = await fetch("http://localhost:3000/apply", {
+            const formData = new FormData();
+            formData.append("file", videoBlobRef.current);
+            formData.append("intervieweeId", intervieweeId);
+
+            fetch("http://localhost:3000/upload", {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            });
-            const result = await response.json();
-            if (result.interviewId === "64690fef7e09492a14acfe14") {
-              router.push(`${pathname}/${result._id}`);
-            }
+              body: formData,
+            })
+              .catch((e) => {
+                console.log(e);
+              })
+              .then((response) => response?.json())
+              .then((result) => {
+                console.log(result);
+              });
           }}
         />
       </GreyCard>
