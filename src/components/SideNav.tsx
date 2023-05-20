@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@mui/system";
+import Link from "next/link";
 
 const SideNavContainer = styled("div")({
   position: "fixed",
@@ -26,10 +27,15 @@ const NavText = styled("p")({
 export function SideNav() {
   return (
     <SideNavContainer>
-      <NavText>About</NavText>
-      <NavText>Create Interview</NavText>
-      <NavText>Join Interview</NavText>
-      <NavText>Results</NavText>
+      <Link href="/about">
+        <NavText>About</NavText>
+      </Link>
+      <Link href="/create">
+        <NavText>Create Interview</NavText>
+      </Link>
+      <Link href="/results">
+        <NavText>Results</NavText>
+      </Link>
     </SideNavContainer>
   );
 }
