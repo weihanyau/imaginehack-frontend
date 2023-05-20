@@ -11,11 +11,11 @@ type PillButtonProps = {
   color?: Property.Color | string;
   darkModeColor?: Property.Color | string;
   text?: string;
-  href?: string;
   padding?: string | number;
   width?: string | number;
   style?: React.CSSProperties;
   backgroundColor?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const ButtonWrapper = styled("div")({});
@@ -30,6 +30,7 @@ const ButtonContainer = styled("div")({
   border: "2px solid",
   borderRadius: "2rem",
   pointerEvents: "all",
+  cursor: "pointer",
 });
 
 const ButtonText = styled("p")({
@@ -45,48 +46,47 @@ const ButtonArrow = styled(AiOutlineArrowRight)({
   transform: "translateX(-1rem)",
 });
 
-export function PillButton({
+export function PillButtonFunctional({
   color = "white",
   darkModeColor,
   text,
-  href,
   padding = "0.613rem 2rem",
   width = "min-content",
   style = {},
   backgroundColor = "transparent",
+  onClick = (e) => {},
 }: PillButtonProps) {
   const [hover, setHover] = useState<boolean>(false);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
     <ButtonWrapper style={{ width: width, ...style }}>
-      <Link href={href !== undefined ? href : "https://www.google.com"}>
-        <ButtonContainer
-          onMouseEnter={() => {
-            setHover(true);
-          }}
-          onMouseLeave={() => {
-            setHover(false);
-          }}
-          style={{
-            color:
-              !prefersDarkMode && darkModeColor !== undefined
-                ? darkModeColor
-                : color,
-            padding: padding,
-            backgroundColor: backgroundColor,
-          }}
-        >
-          <ButtonArrow
-            style={
-              hover ? { opacity: 1, transform: "translateX(-0.25rem)" } : {}
-            }
-          />
-          <ButtonText style={hover ? { transform: "translateX(0.25rem)" } : {}}>
-            {text}
-          </ButtonText>
-        </ButtonContainer>
-      </Link>
+      <ButtonContainer
+        onMouseEnter={() => {
+          setHover(true);
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+        }}
+        onClick={(e) => {
+          onClick(e);
+        }}
+        style={{
+          color:
+            !prefersDarkMode && darkModeColor !== undefined
+              ? darkModeColor
+              : color,
+          padding: padding,
+          backgroundColor: backgroundColor,
+        }}
+      >
+        <ButtonArrow
+          style={hover ? { opacity: 1, transform: "translateX(-0.25rem)" } : {}}
+        />
+        <ButtonText style={hover ? { transform: "translateX(0.25rem)" } : {}}>
+          {text}
+        </ButtonText>
+      </ButtonContainer>
     </ButtonWrapper>
   );
 }
