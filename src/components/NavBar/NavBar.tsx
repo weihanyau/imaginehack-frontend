@@ -61,7 +61,7 @@ export function NavBar() {
       <NavBarToolBar>
         <LeftWrapper>
           <ImageWrapper>
-            <Link href="/">
+            <Link href="/admin/about">
               <Logo
                 src={logo}
                 alt="One Shot Logo"

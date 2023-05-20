@@ -27,13 +27,13 @@ const NavText = styled("p")({
 export function SideNav() {
   return (
     <SideNavContainer>
-      <Link href="/about">
+      <Link href="/admin/about">
         <NavText>About</NavText>
       </Link>
-      <Link href="/create">
+      <Link href="/admin/create">
         <NavText>Create Interview</NavText>
       </Link>
-      <Link href="/results">
+      <Link href="/admin/results">
         <NavText>Results</NavText>
       </Link>
     </SideNavContainer>

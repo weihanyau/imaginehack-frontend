@@ -74,12 +74,29 @@ const StyledTableCell = styled(TableCell)({
   },
 });
 
-export default function Create() {
+async function getData() {
+  const res = await fetch(
+    "http://localhost:3000/interview/64690fef7e09492a14acfe14"
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+export default async function Create() {
+  const { name, questions } = await getData();
   return (
     <Container>
       <GreyCard>
-        <CardTitle>Interview Title</CardTitle>
-        <TextBox placeholder="Shareable Link" />
+        <CardTitle>{name}</CardTitle>
+        <TextBox
+          placeholder="Shareable Link"
+          value="http://localhost:3001/interview/64690fef7e09492a14acfe14/start"
+          InputProps={{ readOnly: true }}
+        />
         <Divider
           variant="middle"
           sx={{ borderColor: "#383838", borderWidth: "2px" }}
