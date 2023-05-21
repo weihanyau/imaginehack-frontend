@@ -1,15 +1,12 @@
 import { Middleman } from "@/components/Middleman";
 
 async function getData() {
-  const res = await fetch(
-    "http://localhost:3000/interview/64690fef7e09492a14acfe14"
+  const response = await fetch(
+    "http://localhost:3000/interview/64690fef7e09492a14acfe14",
+    { method: "GET", cache: "no-store" }
   );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  return response.json();
 }
 
 export default async function Question({
@@ -17,10 +14,12 @@ export default async function Question({
 }: {
   params: { intervieweeId: string };
 }) {
+  // console.log(await getData());
   const { questions } = await getData();
 
   const intervieweeId = params.intervieweeId;
   const question = questions[0];
+  // const question = "Introduce yourself"
 
   return <Middleman question={question} intervieweeId={intervieweeId} />;
 }

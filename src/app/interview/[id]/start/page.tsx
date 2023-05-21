@@ -85,10 +85,6 @@ export default function Start({ params }: { params: { id: string } }) {
         />
         <TextBox
           placeholder="Phone No"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
         />
         <Divider
           variant="middle"
