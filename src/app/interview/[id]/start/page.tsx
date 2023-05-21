@@ -83,6 +83,13 @@ export default function Start({ params }: { params: { id: string } }) {
           }}
           value={email}
         />
+        <TextBox
+          placeholder="Phone No"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          value={email}
+        />
         <Divider
           variant="middle"
           sx={{ borderColor: "#383838", borderWidth: "2px" }}

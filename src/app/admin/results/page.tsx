@@ -14,6 +14,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
 
 const Container = styled("div")({
   display: "flex",
@@ -40,8 +41,9 @@ const TextBox = styled(TextField)({
   borderRadius: "12px",
   width: "100%",
 
-  input: {
+  ["input"]: {
     color: "#737578",
+    cursor: "pointer !important",
   },
 
   "input::placeholder": {
@@ -50,6 +52,7 @@ const TextBox = styled(TextField)({
 
   textarea: {
     color: "#737578",
+    cursor: "pointer !important",
   },
 
   "textarea::placeholder": {
@@ -92,11 +95,16 @@ export default async function Create() {
     <Container>
       <GreyCard>
         <CardTitle>{name}</CardTitle>
-        <TextBox
-          placeholder="Shareable Link"
-          value="http://localhost:3001/interview/64690fef7e09492a14acfe14/start"
-          InputProps={{ readOnly: true }}
-        />
+        <CardSubTitle>Link to Interview</CardSubTitle>
+        <Link href="/interview/64690fef7e09492a14acfe14/start">
+          <TextBox
+            placeholder="Shareable Link"
+            value="http://localhost:3001/interview/64690fef7e09492a14acfe14/start"
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </Link>
         <Divider
           variant="middle"
           sx={{ borderColor: "#383838", borderWidth: "2px" }}

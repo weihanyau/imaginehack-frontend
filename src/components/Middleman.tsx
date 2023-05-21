@@ -20,7 +20,7 @@ const GreyCard = styled(Card)({
   flexDirection: "column",
   gap: "1rem",
   width: "75vw",
-  height: "80vh",
+  height: "90vh",
   backgroundColor: "#020408",
   padding: "2rem 4rem",
   boxShadow: "0px 4px 250px 24px #FFFFFF33",
@@ -77,6 +77,7 @@ export function Middleman({
           variant="middle"
           sx={{ borderColor: "#383838", borderWidth: "2px" }}
         />
+
         <Video videoBlobRef={videoBlobRef} />
         <PillButtonFunctional
           text="Submit"
@@ -86,6 +87,7 @@ export function Middleman({
             const formData = new FormData();
             formData.append("file", videoBlobRef.current);
             formData.append("intervieweeId", intervieweeId);
+            formData.append("question", question);
 
             fetch("http://localhost:3000/upload", {
               method: "POST",
